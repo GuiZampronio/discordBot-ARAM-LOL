@@ -20,26 +20,11 @@ client.on("message", function(message) {
     const messageBody = message.content.slice(prefix.length);
     const command = messageBody.toLowerCase();
 
-    if(command === "conezilla"){
-        message.reply("CARECA");
-    }
-
     if(command === "clear"){
         message.channel.bulkDelete(100);
     }
 
-    if(command === "tobalol"){
-        let matchId = [];
-        let championKoba = [];
-
-        (async function(){
-            matchId = await lolFunctions.getLastAramMatch(fetch);
-            championKoba = await lolFunctions.getKobaCharacter(fetch, matchId);
-            message.reply(`Os ultimos dez campeões usados pelo Tobalol em ARAM foram os seguintes:\n${championKoba}`);
-        })(); 
-    }
-
-    if(command === "mamou"){ 
+    if(command === "perdedor"){ 
         (async function(){
         let stringtoReply;
 

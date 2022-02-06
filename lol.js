@@ -185,8 +185,8 @@ async function computarMamada(fetch){
         "\n", "Dano: ", JSON.stringify(playersDamages[index]), "\n\n")    
     })
 
-    stringFinal = stringFinal.concat("Informações sobre o ultimo ARAM DA MAMADA :", "\n\n"
-    , stringInformations, "PARABÉNS ", playerMamador, " VOCÊ MAMOU!");
+    stringFinal = stringFinal.concat("Informações sobre o ultimo ARAM  :", "\n\n"
+    , stringInformations, "PARABÉNS ", playerMamador, " VOCÊ PERDEU!");
 
     //console.log(stringFinal);
 
