@@ -8,7 +8,6 @@ client.login(config.BOT_TOKEN);
 
 const prefix = "!";
 
-
 client.on("message", function(message) { 
     if (message.author.bot){
         return;

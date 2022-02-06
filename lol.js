@@ -2,13 +2,12 @@ const config = require("./config.json");
 const players = require("./players.json");
 
 const Key = config.RIOT_KEY;
-const KobaId = players[0].id;
 const aramid = 450;
 
 async function getPlayerPerdedor(playersDamages, playersName){
     let smallerDamage = playersDamages[0];
     let playerIndex;
-    let playerMamador;
+    let playerPerdedor;
     
     playersDamages.forEach((element, index) => {
         if(element <= smallerDamage){
@@ -17,9 +16,9 @@ async function getPlayerPerdedor(playersDamages, playersName){
         }    
     })
 
-    playerMamador = playersName[playerIndex].name;
+    playerPerdedor = playersName[playerIndex].name;
 
-    return playerMamador;
+    return playerPerdedor;
 }
 
 async function getPlayersDamages(match, playersName){
@@ -48,7 +47,7 @@ async function getPlayersChampions(match, playersName){
 }
 
 async function getPlayersNames(match){
-    let playersMamada = [];
+    let playersParticipants = [];
     let playersinGame = [];
     let playerId;
     let playersNames = [];
@@ -57,10 +56,10 @@ async function getPlayersNames(match){
     
     players.forEach(element => {
         playerId = playersinGame.find(value => JSON.stringify(value) == JSON.stringify(element.id)); 
-        if(playerId != undefined){playersMamada.push(playerId)};
+        if(playerId != undefined){playersParticipants.push(playerId)};
     });
 
-    playersMamada.forEach(element => {
+    playersParticipants.forEach(element => {
         players.forEach(value => {
             if(JSON.stringify(value.id) == JSON.stringify(element)){
                 playersNames.push(value); 
@@ -82,7 +81,7 @@ async function getAramMatch(fetch, validGameId){
 
 async function chooseValidGame(matchesArray){
     let filterArray = [];
-    let amountPlayersMamada = 0;
+    let amountPlayers = 0;
     let i, j;
     let possibleMatches = [];
     let validGame = "BR_0";
@@ -97,14 +96,14 @@ async function chooseValidGame(matchesArray){
     for(i = 0; i < filterArray.length; i++){
         for(j = 0; j < matchesArray.length; j++){
             if(JSON.stringify(filterArray[i]) == JSON.stringify(matchesArray[j])){
-                amountPlayersMamada++;
+                amountPlayers++;
             }
-            if(amountPlayersMamada == 3){
+            if(amountPlayers == 3){
                 possibleMatches.push(filterArray[i]);
                 break;
             }
         }
-        amountPlayersMamada = 0;   
+        amountPlayers = 0;   
     }
 
     for(i = 0; i < possibleMatches.length; i++){
@@ -131,36 +130,6 @@ async function getLastAramMatches(fetch){
     return matchesArray;
 }
 
-async function getLastAramMatch(fetch){
-    const link = `https://americas.api.riotgames.com/lol/match/v5/matches/by-puuid/${KobaId}/ids?queue=${aramid}&start=0&count=10&api_key=${Key}`;
-    let response = await fetch(link);
-    
-    response = await response.json();
-    return response;
-}
-
-async function getKobaCharacter(fetch, matchId){
-    let indexParticipantKoba;
-    let indexMatchId = 0;
-    let championKoba = []
-
-
-    while(indexMatchId != 10){
-        const link = `https://americas.api.riotgames.com/lol/match/v5/matches/${matchId[indexMatchId]}?api_key=${Key}`;
-        let response = await fetch(link);
-        response = await response.json();
-        for(indexParticipantKoba = 0; indexParticipantKoba < 10; indexParticipantKoba++){
-            if(KobaId == response.metadata.participants[indexParticipantKoba]){
-                break;
-            }
-        }
-        championKoba.push(response.info.participants[indexParticipantKoba].championName);
-        indexMatchId++;
-    }
-
-    return championKoba;
-}
-
 async function computarPerdedor(fetch){
     let matchesArray = [];
     let validGameId;
@@ -168,7 +137,7 @@ async function computarPerdedor(fetch){
     let playersName = []; 
     let playersChampions = [];
     let playersDamages = [];
-    let playerMamador;
+    let playerPerdedor;
     let stringFinal = "";
     let stringInformations = "";
 
@@ -186,12 +155,12 @@ async function computarPerdedor(fetch){
     })
 
     stringFinal = stringFinal.concat("Informações sobre o ultimo ARAM  :", "\n\n"
-    , stringInformations, "PARABÉNS ", playerMamador, " VOCÊ PERDEU!");
+    , stringInformations, "PARABÉNS ", playerPerdedor, " VOCÊ PERDEU!");
 
     //console.log(stringFinal);
 
     return stringFinal;
 }
 
-module.exports = {getLastAramMatch, getKobaCharacter, computarMamada};
+module.exports = {computarPerdedor};
 
