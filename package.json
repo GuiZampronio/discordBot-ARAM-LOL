@@ -1,0 +1,15 @@
+{
+  "name": "aram-bot",
+  "version": "1.0.0",
+  "description": "Bot da Mamada de Aram do Discord",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Gui Zampronio",
+  "license": "ISC",
+  "dependencies": {
+    "discord.js": "^13.6.0",
+    "node-fetch": "^2.6.7"
+  }
+}
