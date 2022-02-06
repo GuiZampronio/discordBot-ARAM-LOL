@@ -5,7 +5,7 @@ const Key = config.RIOT_KEY;
 const KobaId = players[0].id;
 const aramid = 450;
 
-async function getPlayerMamador(playersDamages, playersName){
+async function getPlayerPerdedor(playersDamages, playersName){
     let smallerDamage = playersDamages[0];
     let playerIndex;
     let playerMamador;
@@ -161,7 +161,7 @@ async function getKobaCharacter(fetch, matchId){
     return championKoba;
 }
 
-async function computarMamada(fetch){
+async function computarPerdedor(fetch){
     let matchesArray = [];
     let validGameId;
     let match;
@@ -178,7 +178,7 @@ async function computarMamada(fetch){
     playersName = await getPlayersNames(match);
     playersChampions = await getPlayersChampions(match, playersName);
     playersDamages = await getPlayersDamages(match, playersName);
-    playerMamador = await getPlayerMamador(playersDamages, playersName);
+    playerMamador = await getPlayerPerdedor(playersDamages, playersName);
 
     playersName.forEach((element, index) => {
         stringInformations = stringInformations.concat(JSON.stringify(element.name), ":\n", "Campeão: ", JSON.stringify(playersChampions[index]), 

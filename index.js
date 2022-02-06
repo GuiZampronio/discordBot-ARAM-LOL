@@ -28,7 +28,7 @@ client.on("message", function(message) {
         (async function(){
         let stringtoReply;
 
-        stringtoReply =  await lolFunctions.computarMamada(fetch);
+        stringtoReply =  await lolFunctions.computarPerdedor(fetch);
         message.reply(stringtoReply);  
         })();          
     }
